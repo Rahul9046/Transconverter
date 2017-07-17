@@ -84,7 +84,7 @@ function csvTojs(lines) {
             fname.placeholder="File name(optional)";
             dbtn.innerHTML="Download";
             if(display_div.hasChildNodes("TEXTAREA")){
-                console.log(document.getElementById("download"));
+                //console.log(document.getElementById("download"));
                display_div.removeChild(document.getElementById("download"));
                display_div.removeChild(document.getElementById("fname"));
                display_div.appendChild(dbtn);
@@ -143,7 +143,7 @@ function fileToText(file) {
             fname.placeholder="File name(optional)";
             dbtn.innerHTML="Download";
             if(display_div.hasChildNodes("TEXTAREA")){
-                console.log(document.getElementById("download"));
+                //console.log(document.getElementById("download"));
                display_div.removeChild(document.getElementById("download"));
                display_div.removeChild(document.getElementById("fname"));
                display_div.appendChild(dbtn);
