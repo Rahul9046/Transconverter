@@ -22,7 +22,11 @@ var perform_conversion=(function(){
         case "xlsx":if(file_selector.dataset.type==="csv"){
                     toXlsx();
                     }
-                    break;      
+                    break;  
+        case "json":if(file_selector.dataset.type==="csv"){
+                    myFunction(file_selector.files[0]);
+                    }
+                    break; 
     }
 });
 
