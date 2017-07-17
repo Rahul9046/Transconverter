@@ -61,7 +61,7 @@ file_selector.addEventListener("click",function(e){
                              for(var i=0;i<inputs.length;i++){
                              if(inputs[i].checked){
                                  check=1;checked_ele=inputs[i];
-                                 console.log(inputs[i].value);
+                                 //console.log(inputs[i].value);
                              }
                             }
                             if(check){
