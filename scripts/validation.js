@@ -26,7 +26,15 @@ var perform_conversion=(function(){
         case "json":if(file_selector.dataset.type==="csv"){
                     myFunction(file_selector.files[0]);
                     }
+                    else if(file_selector.dataset.type==="xml"){
+                    toJson();
+                    }
                     break; 
+        case "xml":if(file_selector.dataset.type==="json"){
+                    toXml();
+                    }
+                    break;              
+        
     }
 });
 
