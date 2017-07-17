@@ -1,50 +1,16 @@
-function myFunction(){
-    var res=[];
-    var x = document.getElementById("myFile");
-    var txt = "";
-    if ('files' in x) {
-        if (x.files.length == 0) {
-            
-            txt = "Select one file.";
-        } else {
-            
-            
-                txt += "<br><strong>" + (1) + ". file</strong><br>";
-                var file = x.files[0];
-                if ('name' in file) {
-                    txt += "name: " + file.name + "<br>";
-                }
-                if ('size' in file) {
-                    txt += "size: " + file.size + " bytes <br>";
+function myFunction(file){
                 var ctype=file.name;
-                //console.log(typeof ctype);
-                if(ctype.endsWith(".csv"))
+                
+                if(ctype.endsWith(".csv")||ctype.endsWith(".CSV"))
                     {
                 Papa.parse(file, {
 	complete: function(results) {
-		// csvTojs(results.data);
-        csvTojs( results.data);
-
-	}
+        csvTojs( results.data);}
         });                 
                     }
-                    else if(ctype.endsWith(".JSON")){
+                    else if(ctype.endsWith(".JSON")||ctype.endsWith(".json")){
                         fileToText(file);
                     }
-                else
-                    console.log("Not a csv file");
-            }
-        }
-    } 
-    else {
-        if (x.value == "") {
-             txt += "Select one file.";
-        } else {
-            txt += "The files property is not supported by your browser!";
-            txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
-        }
-    }
-    document.getElementById("demo").innerHTML = txt;
 }
 function csvTojs(lines) {
   var result = [];
@@ -103,7 +69,44 @@ function csvTojs(lines) {
         result.push(JSON.stringify(obj));
       }
   }
-  save(result,"res.JSON");
+  var display_div=document.getElementById("disp_div")||document.createElement("DIV");
+            display_div.id="disp_div";
+            display_div.style="position:absolute;left:400px;top:50px";
+            var text_area=document.getElementById("disp_content")||document.createElement("TEXTAREA");
+            text_area.id="disp_content";
+            text_area.style="height:300px;width:500px;color:red";
+            var dbtn=document.createElement("BUTTON");
+            dbtn.id="download";
+            dbtn.innerHTML="Download";
+            var fname=document.createElement("INPUT");
+            fname.type="text";
+            fname.id="fname";
+            fname.placeholder="File name(optional)";
+            dbtn.innerHTML="Download";
+            if(display_div.hasChildNodes("TEXTAREA")){
+                console.log(document.getElementById("download"));
+               display_div.removeChild(document.getElementById("download"));
+               display_div.removeChild(document.getElementById("fname"));
+               display_div.appendChild(dbtn);
+               display_div.appendChild(fname);
+            }
+            else{
+              display_div.appendChild(text_area);
+              display_div.appendChild(document.createElement("BR"));
+              display_div.appendChild(dbtn);
+              display_div.appendChild(fname);
+              document.body.appendChild(display_div);
+               }
+               text_area.innerHTML=result.toString();
+ // save(result,"res.JSON");
+            dbtn.addEventListener("click",function(){
+             if(fname.value!==""){
+               save(result,fname.value+".json");
+             }
+             else{
+              save(result,file.files[0].name.split(".")[0]+".json");
+             }
+        });
 }
 function save(content, fileName, mime) {
   const blob = new Blob([content], {
@@ -124,6 +127,43 @@ function fileToText(file) {
     console.log(reader.result);
     var csv=Papa.unparse(reader.result);
     //console.log(csv);
-    save(csv,"resu.csv");
-  };
+    //save(csv,"resu.csv");
+    var display_div=document.getElementById("disp_div")||document.createElement("DIV");
+            display_div.id="disp_div";
+            display_div.style="position:absolute;left:400px;top:50px";
+            var text_area=document.getElementById("disp_content")||document.createElement("TEXTAREA");
+            text_area.id="disp_content";
+            text_area.style="height:300px;width:500px;color:red";
+            var dbtn=document.createElement("BUTTON");
+            dbtn.id="download";
+            dbtn.innerHTML="Download";
+            var fname=document.createElement("INPUT");
+            fname.type="text";
+            fname.id="fname";
+            fname.placeholder="File name(optional)";
+            dbtn.innerHTML="Download";
+            if(display_div.hasChildNodes("TEXTAREA")){
+                console.log(document.getElementById("download"));
+               display_div.removeChild(document.getElementById("download"));
+               display_div.removeChild(document.getElementById("fname"));
+               display_div.appendChild(dbtn);
+               display_div.appendChild(fname);
+            }
+            else{
+              display_div.appendChild(text_area);
+              display_div.appendChild(document.createElement("BR"));
+              display_div.appendChild(dbtn);
+              display_div.appendChild(fname);
+              document.body.appendChild(display_div);
+               }
+               text_area.innerHTML=csv.toString();
+        dbtn.addEventListener("click",function(){
+             if(fname.value!==""){
+               save(csv,fname.value+".csv");
+             }
+             else{
+              save(csv,file.files[0].name.split(".")[0]+".csv");
+             }
+  });
+}
 }   
