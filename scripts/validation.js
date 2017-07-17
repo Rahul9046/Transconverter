@@ -15,6 +15,9 @@ var perform_conversion=(function(){
         case "csv": if(file_selector.dataset.type==="xlsx"){
                     toCsv();
                     }
+                    else if(file_selector.dataset.type==="json"){
+                    myFunction(file_selector.files[0]);
+                    }
                     break; 
         case "xlsx":if(file_selector.dataset.type==="csv"){
                     toXlsx();
