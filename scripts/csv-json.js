@@ -120,11 +120,11 @@ function save(content, fileName, mime) {
 }
 function fileToText(file) {
   var reader = new FileReader();
-  console.log("reader is created");
+  //console.log("reader is created");
   reader.readAsText(file);
-  console.log("file read");
+  //console.log("file read");
   reader.onload = () => {
-    console.log(reader.result);
+   // console.log(reader.result);
     var csv=Papa.unparse(reader.result);
     //console.log(csv);
     //save(csv,"resu.csv");
