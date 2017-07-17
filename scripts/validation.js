@@ -12,9 +12,13 @@ var check_types=(function(){
 
 var perform_conversion=(function(){
     switch(arguments[0]){
-        case "csv": toCsv();
+        case "csv": if(file_selector.dataset.type==="xlsx"){
+                    toCsv();
+                    }
                     break; 
-        case "xlsx":toXlsx();
+        case "xlsx":if(file_selector.dataset.type==="csv"){
+                    toXlsx();
+                    }
                     break;      
     }
 });
@@ -38,10 +42,11 @@ case 'xml':file_selector.setAttribute('accept','.xml');
 
 file_selector.addEventListener("click",function(e){
                              var check=0,checked_ele;
-                             var inputs=document.getElementById("inputs").getElementsByTagName("input");
+                             var inputs=document.getElementById("input").getElementsByTagName("input");
                              for(var i=0;i<inputs.length;i++){
                              if(inputs[i].checked){
                                  check=1;checked_ele=inputs[i];
+                                 console.log(inputs[i].value);
                              }
                             }
                             if(check){
