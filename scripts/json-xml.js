@@ -39,10 +39,10 @@ var toXml = (function(){ //json to xml
             text_area.innerHTML=xmlAsStr;
             dbtn.addEventListener("click",function(){
              if(fname.value!==""){
-               saveData(new Blob([data]),fname.value+".xml");
+               saveData(new Blob([xmlAsStr]),fname.value+".xml");
              }
              else{
-              saveData(new Blob([data]),file.files[0].name.split(".")[0]+".xml");
+              saveData(new Blob([xmlAsStr]),file.files[0].name.split(".")[0]+".xml");
              }
             });
             }
@@ -91,13 +91,14 @@ var toJson = (function(){ //xml to json
             var x2js = new X2JS();   
             var xmlText = data;
             var jsonObj = x2js.xml_str2json( xmlText );
+            var jsonStr = JSON.stringify(jsonObj);
             text_area.innerHTML=JSON.stringify(jsonObj);
             dbtn.addEventListener("click",function(){
              if(fname.value!==""){
-               saveData(new Blob([data]),fname.value+".json");
+               saveData(new Blob([jsonStr]),fname.value+".json");
              }
              else{
-              saveData(new Blob([data]),file.files[0].name.split(".")[0]+".json");
+              saveData(new Blob([jsonStr]),file.files[0].name.split(".")[0]+".json");
              }
             });
             }
