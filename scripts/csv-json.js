@@ -1,50 +1,16 @@
-function myFunction(){
-    var res=[];
-    var x = document.getElementById("myFile");
-    var txt = "";
-    if ('files' in x) {
-        if (x.files.length == 0) {
-            
-            txt = "Select one file.";
-        } else {
-            
-            
-                txt += "<br><strong>" + (1) + ". file</strong><br>";
-                var file = x.files[0];
-                if ('name' in file) {
-                    txt += "name: " + file.name + "<br>";
-                }
-                if ('size' in file) {
-                    txt += "size: " + file.size + " bytes <br>";
+function myFunction(file){
                 var ctype=file.name;
-                //console.log(typeof ctype);
-                if(ctype.endsWith(".csv"))
+                
+                if(ctype.endsWith(".csv")||ctype.endsWith(".CSV"))
                     {
                 Papa.parse(file, {
 	complete: function(results) {
-		// csvTojs(results.data);
-        csvTojs( results.data);
-
-	}
+        csvTojs( results.data);}
         });                 
                     }
-                    else if(ctype.endsWith(".JSON")){
+                    else if(ctype.endsWith(".JSON")||ctype.endsWith(".json")){
                         fileToText(file);
                     }
-                else
-                    console.log("Not a csv file");
-            }
-        }
-    } 
-    else {
-        if (x.value == "") {
-             txt += "Select one file.";
-        } else {
-            txt += "The files property is not supported by your browser!";
-            txt  += "<br>The path of the selected file: " + x.value; // If the browser does not support the files property, it will return the path of the selected file instead. 
-        }
-    }
-    document.getElementById("demo").innerHTML = txt;
 }
 function csvTojs(lines) {
   var result = [];
